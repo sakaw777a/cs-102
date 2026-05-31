@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>C++ Study Hub</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Cairo:wght@400;600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon-wrap">💻</div>
+    <div>
+      <div class="logo-title">C++ Study Hub</div>
+      <div class="logo-sub">CS.102 – مذاكرة ذكية</div>
+      <div class="logo-name">👤 sakaw</div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-label">📚 الدروس</div>
+    <a class="nav-item active" data-section="dashboard" onclick="navigate('dashboard')">🏠 لوحة التحكم</a>
+    <a class="nav-item" data-section="variables" onclick="navigate('variables')">📦 المتغيرات والإدخال</a>
+    <a class="nav-item" data-section="operators" onclick="navigate('operators')">🔢 العمليات الحسابية</a>
+    <a class="nav-item" data-section="conditionals" onclick="navigate('conditionals')">🔀 الشروط والـ Switch</a>
+    <a class="nav-item" data-section="loops" onclick="navigate('loops')">🔁 الحلقات</a>
+    <a class="nav-item" data-section="functions" onclick="navigate('functions')">🧩 الدوال</a>
+    <a class="nav-item" data-section="arrays" onclick="navigate('arrays')">🗂️ المصفوفات</a>
+    <a class="nav-item" data-section="structs" onclick="navigate('structs')">🏗️ الـ Structs</a>
+
+    <div class="nav-label" style="margin-top:1.25rem;">🛠️ أدوات المذاكرة</div>
+    <a class="nav-item" data-section="flashcards" onclick="navigate('flashcards')">🃏 Flashcards</a>
+    <a class="nav-item" data-section="quiz" onclick="navigate('quiz')">📝 اختبار سريع</a>
+  </nav>
+
+  <div class="sidebar-progress-mini">
+    <div class="mini-label">إجمالي التقدم</div>
+    <div class="mini-bar-wrap"><div class="mini-bar" id="mini-progress-bar"></div></div>
+    <div class="mini-pct" id="mini-pct-text">0%</div>
+  </div>
+</aside>
+
+<button class="hamburger" id="hamburger" onclick="toggleSidebar()">☰</button>
+
+<main class="main-content" id="main-content">
+
+  <!-- DASHBOARD -->
+  <section id="sec-dashboard" class="section active">
+    <div class="page-header">
+      <h1>أهلاً يا <span class="highlight">sakaw</span> 👋</h1>
+      <p class="page-sub">جاهز للمذاكرة؟ تابع تقدمك وخلّص المادة خطوة خطوة 🚀</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card green">
+        <div class="stat-icon">✅</div>
+        <div class="stat-num" id="stat-done">0</div>
+        <div class="stat-label">تمت مذاكرتها</div>
+      </div>
+      <div class="stat-card red">
+        <div class="stat-icon">📌</div>
+        <div class="stat-num" id="stat-remaining">0</div>
+        <div class="stat-label">متبقية</div>
+      </div>
+      <div class="stat-card yellow">
+        <div class="stat-icon">📊</div>
+        <div class="stat-num" id="stat-total">0</div>
+        <div class="stat-label">إجمالي الأمثلة</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-num" id="stat-pct">0%</div>
+        <div class="stat-label">نسبة الإنجاز</div>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-label-row">
+        <span>شريط التقدم الكلي</span>
+        <span id="progress-pct-label">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="main-progress-bar"></div>
+      </div>
+    </div>
+
+    <div class="dash-actions">
+      <button class="btn btn-primary" onclick="resumeStudy()">⏯️ استكمال المذاكرة</button>
+      <button class="btn btn-challenge" onclick="randomChallenge()">🎲 تحدي عشوائي</button>
+      <button class="btn btn-outline" onclick="navigate('flashcards')">🃏 Flashcards</button>
+      <button class="btn btn-outline" onclick="navigate('quiz')">📝 اختبار سريع</button>
+    </div>
+
+    <div class="sections-overview">
+      <h2 class="overview-title">نظرة سريعة على الأقسام</h2>
+      <div class="overview-grid" id="overview-grid"></div>
+    </div>
+  </section>
+
+  <!-- STUDY SECTIONS (rendered by JS) -->
+  <section id="sec-variables"    class="section"></section>
+  <section id="sec-operators"    class="section"></section>
+  <section id="sec-conditionals" class="section"></section>
+  <section id="sec-loops"        class="section"></section>
+  <section id="sec-functions"    class="section"></section>
+  <section id="sec-arrays"       class="section"></section>
+  <section id="sec-structs"      class="section"></section>
+
+  <!-- FLASHCARDS -->
+  <section id="sec-flashcards" class="section">
+    <div class="page-header">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <h1>Flashcards 🃏</h1>
+          <p class="page-sub">اضغط على الكارت عشان تشوف الإجابة – مراجعة سريعة قبل الامتحان!</p>
+        </div>
+        <div class="lang-switcher">
+          <span class="lang-label">لغة الأسئلة:</span>
+          <button class="lang-btn active" data-lang="ar" onclick="setLang('ar')">🇸🇦 عربي</button>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')">🇬🇧 English</button>
+        </div>
+      </div>
+    </div>
+    <div class="fc-controls">
+      <button class="btn btn-outline" onclick="prevFlash()">◀ السابق</button>
+      <span class="fc-counter" id="fc-counter">1 / 0</span>
+      <button class="btn btn-outline" onclick="nextFlash()">التالي ▶</button>
+      <button class="btn btn-challenge" onclick="shuffleFlash()">🔀 عشوائي</button>
+    </div>
+    <div class="fc-stage">
+      <div class="flip-card" id="flip-card" onclick="flipCard()">
+        <div class="flip-inner" id="flip-inner">
+          <div class="flip-front" id="flip-front"></div>
+          <div class="flip-back"  id="flip-back"></div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-hint" id="fc-hint-area"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="sec-quiz" class="section">
+    <div class="page-header">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <h1>اختبار سريع 📝</h1>
+          <p class="page-sub">3 أسئلة عشوائية – اختبر نفسك!</p>
+        </div>
+        <div class="lang-switcher">
+          <span class="lang-label">لغة الأسئلة:</span>
+          <button class="lang-btn" data-lang="ar" onclick="setLang('ar')">🇸🇦 عربي</button>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')">🇬🇧 English</button>
+        </div>
+      </div>
+    </div>
+    <div id="quiz-container"></div>
+  </section>
+
+</main>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
